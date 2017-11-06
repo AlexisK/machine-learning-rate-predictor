@@ -19,7 +19,8 @@ export class PeriodCalculator {
                 index = ind;
             }
         });
-        console.log('Using period of:', index + range[0]);
+        console.log('Using period:', index + range[0],
+            '\nwith precision:', smallestDiff);
         return index + range[0];
     }
 
