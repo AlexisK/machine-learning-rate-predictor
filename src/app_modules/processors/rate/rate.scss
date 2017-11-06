@@ -3,6 +3,7 @@
 .rate-processor {
   position: relative;
   height: 600px;
+  margin: 0 -40px;
   border: 1px solid $grey-2;
   background-color: $grey-1;
 
@@ -15,7 +16,7 @@
       position: relative;
       display: inline-block;
       height: 100%;
-      width: 6px;
+      width: 8px;
       //border-right: 1px solid $grey-1;
 
       &:nth-of-type(7n) {
@@ -26,7 +27,7 @@
         position: absolute;
         right: 1px; bottom: 0; left: 1px;
         background-color: white;
-        border-top: 2px solid $color-primary;
+        //border-top: 4px solid $grey-3;
       }
     }
   }
@@ -36,9 +37,8 @@
     border-top: 2px solid $grey-5;
   }
 
-  .narrow .rate-bar > div {
-    right: 2px; left: 2px;
-    background-color: $grey-3;
+  .prediction .rate-bar > div {
+    background-color: transparent;
     border-top: 2px solid $color-primary;
   }
 }

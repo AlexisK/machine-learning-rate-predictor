@@ -6,6 +6,7 @@ export class RatePredictor {
         this.periodLength = periodLength;
         this.weights = new Array(periodLength);
         this.periodIndex = 0;
+        this.learnData = [];
     }
 
     initialData(dataArray) {
@@ -25,7 +26,7 @@ export class RatePredictor {
     }
 
     relearn() {
-        if ( this.learnData ) {
+        if ( this.learnData.length ) {
             let startInd = this.learnData.length % this.periodLength;
             this.learnPeriod([...this.weights.slice(0, startInd), ...this.learnData.slice(0,this.periodLength-startInd)]);
 
@@ -38,11 +39,12 @@ export class RatePredictor {
     }
 
     learn(data) {
-        this.learnData = data;
+        this.learnData = [...this.learnData, ...data];
         this.initialData(data);
         for (let i = relearnAttempts; i --> 0;) {
             this.relearn();
         }
+        return true;
     }
 
     predict(length) {
