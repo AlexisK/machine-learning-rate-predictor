@@ -1,0 +1,139 @@
+@import "globals";
+
+
+// general
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: $grey-1;
+}
+
+.main-content {
+  flex: 1 0 auto;
+  padding-top: 40px;
+}
+
+.wrapper {
+  width: $size-wrapper;
+  margin: 40px auto;
+}
+
+input, textarea, select {
+  outline: none;
+}
+
+
+// rows, cols
+.row, .col {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.row {
+  flex-direction: row;
+}
+.col {
+  flex-direction: column;
+}
+
+
+// cards
+.card {
+  @include mat-card();
+
+  .profile {
+    display: inline-block;
+    width: 200px; height: 40px;
+    padding: 5px;
+    @include mat-shadow();
+
+    img {
+      float: left;
+      width: 40px; height: 40px;
+      margin: -5px;
+    }
+    strong, small {
+      display: block;
+      margin-left: 40px;
+    }
+  }
+}
+
+
+// toolbar
+.toolbar {
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  height: 40px;
+  background-color: $color-primary;
+  color: white;
+  @include mat-shadow();
+
+  > div {
+    width: $size-wrapper;
+    height: 40px;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: block;
+
+    a, button {
+      display: block;
+      float: left;
+      padding: 10px 20px;
+      line-height: 20px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-left: 1px solid $color-secondary;
+
+      &:hover {
+        background-color: $color-secondary;
+      }
+    }
+  }
+
+  .profile {
+    float: right;
+    padding: 5px;
+
+    img {
+      float: right;
+      width: 30px; height: 30px;
+      border-radius: 15px;
+      border: 2px solid white;
+    }
+
+    strong, small {
+      display: block;
+      margin-right: 35px;
+      text-align: right;
+      white-space: nowrap;
+    }
+  }
+}
+
+
+// footer
+footer {
+  min-height: 40px;
+  background-color: $grey-2;
+  > div {
+    width: $size-wrapper;
+    margin: 0 auto;
+  }
+}
+
+.popup-wrapper {
+  position: fixed;
+  top: 40px; right: 0; bottom: 0; left: 0;
+  overflow: auto;
+  background-color: rgba($grey-2, 0.5);
+
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    @include mat-card();
+  }
+}

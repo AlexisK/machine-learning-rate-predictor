@@ -1,0 +1,47 @@
+@import "globals";
+
+.chat-processor {
+  margin: 10px;
+  border: 1px solid $grey-2;
+  color: $grey-4;
+
+  .dialog-wrapper {
+    position: relative;
+    min-height: 400px;
+    padding: 10px;
+    overflow: auto;
+
+    .dialog-window {
+      position: absolute;
+      right: 0; bottom: 0; left: 0;
+
+      .chat-message {
+        float: left;
+        width: 70%;
+        margin: 10px;
+        padding: 10px;
+        background-color: $grey-1;
+
+        &.system {
+          float: right;
+        }
+
+        > div {
+          white-space: pre-wrap;
+        }
+      }
+    }
+  }
+
+  .input-wrapper {
+    margin: 0 10px;
+    textarea {
+      width: 100%;
+      padding: 10px 0;
+      border: none;
+      border-top: 1px solid $grey-2;
+      color: $grey-4;
+      resize: none;
+    }
+  }
+}

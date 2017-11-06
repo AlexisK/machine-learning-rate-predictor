@@ -1,0 +1,14 @@
+$grey-1: #eee;
+$grey-2: #e5e5e5;
+$grey-3: #ddd;
+$grey-4: #555;
+$grey-5: #333;
+
+$red-1: #ff524b;
+$green-1: #59cb37;
+$blue-1: #3590ce;
+
+$color-back: $grey-5;
+
+$color-primary: $blue-1;
+$color-secondary: mix($blue-1, $color-back, 80%);
