@@ -1,7 +1,6 @@
 import { Processor } from 'core/classes';
 import { RatePredictor } from './rate-predictor';
-
-const preriodLength = 16;
+import { PeriodCalculator } from './period-calculator';
 
 export var RateProcessor = new Processor({
     name     : 'rate',
@@ -10,13 +9,24 @@ export var RateProcessor = new Processor({
     events   : {},
     init     : (self, params) => {
         self.data = [
-            5,8,9,8,5,2,1,2,
-            5,8,9,8,5,2,1,2,
-            5,8,9,8,5,2,1,2,
-            5,8,9,8,5,2,1,2,
-            5,8,9,8,5,2,1,2,
-            5,8,9,8,5,2,1,2,
-        ].map(v => Math.random()*v*4);
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+            5,8,9,8,2,1,2,
+        ].map(v => Math.round((Math.random()+2)*v*1.7+5));
         self.clearWorkers = [];
 
         // methods
@@ -29,6 +39,7 @@ export var RateProcessor = new Processor({
             data.forEach(value => {
                 let {nodes, removeDom, anchors} = self.renderTemplate(require('./bar.html'), anchor);
                 anchors.fill[0].style.height = value*10 + 'px';
+                anchors.fill[0].textContent = value;
                 self.clearWorkers.push(removeDom);
             })
         };
@@ -45,15 +56,25 @@ export var RateProcessor = new Processor({
             self.clear();
             self.renderData();
             self.renderPrediction();
+        };
+
+        self.calculatePeriod = function() {
+            return new Promise(resolve => {
+                let calc = new PeriodCalculator();
+                resolve(calc.calculate(this.data));
+            });
         }
     },
     process  : (self) => {
-        let predictor = new RatePredictor(preriodLength);
         self.render = function() {
-            predictor.learn(self.data);
             self.clear();
             self.renderData();
-            self.renderPrediction([...self.data, ...predictor.predict(preriodLength)]);
+            self.calculatePeriod()
+                .then(periodLength => {
+                    let predictor = new RatePredictor(periodLength);
+                    predictor.learn(self.data);
+                    self.renderPrediction([...self.data, ...predictor.predict(periodLength)]);
+                });
         };
         self.render();
     }

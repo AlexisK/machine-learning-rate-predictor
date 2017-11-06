@@ -1,4 +1,4 @@
-const relearnAttempts = 1000;
+const relearnAttempts = 100;
 const learnRate = 0.1;
 
 export class RatePredictor {
@@ -9,7 +9,8 @@ export class RatePredictor {
     }
 
     initialData(dataArray) {
-        this.weights = dataArray.slice(0, this.periodLength);
+        let startInd = this.learnData.length % this.periodLength;
+        this.weights = dataArray.slice(startInd, startInd+this.periodLength);
         this.streamIndex = this.periodLength;
     }
 
@@ -25,7 +26,10 @@ export class RatePredictor {
 
     relearn() {
         if ( this.learnData ) {
-            for ( let i = 0, j = this.periodLength;
+            let startInd = this.learnData.length % this.periodLength;
+            this.learnPeriod([...this.weights.slice(0, startInd), ...this.learnData.slice(0,this.periodLength-startInd)]);
+
+            for ( let i = startInd, j = startInd + this.periodLength;
                   i < this.learnData.length;
                   i += this.periodLength, j += this.periodLength) {
                 this.learnPeriod(this.learnData.slice(i, j))
