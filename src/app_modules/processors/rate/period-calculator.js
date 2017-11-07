@@ -1,12 +1,13 @@
 import { RatePredictor } from './rate-predictor';
-const range = [1, 200];
+const range             = [1, 100];
+const lengthDiffFallExp = 0.99;
 
 export class PeriodCalculator {
     constructor() {
     }
 
     calculate(data) {
-        this.max   = Math.min(range[1], (data.length/2));
+        this.max   = Math.min(range[1], Math.floor(data.length / 2));
         this.diffs = new Array(this.max - range[0]);
 
         for (let i = 0, period = range[0]; period < this.max; i++, period++) {
@@ -32,9 +33,9 @@ export class PeriodCalculator {
         predictor.learn(data.slice(0, learnDataLength));
 
         return predictor
-            .predict(period)
-            .reduce((acc, predicted, ind) => {
-                return acc + Math.abs((predicted - data[learnDataLength + ind]));
-            }, 0) / period;
+                .predict(period)
+                .reduce((acc, predicted, ind) => {
+                    return acc + Math.abs((predicted - data[learnDataLength + ind]));
+                }, 0) / period * Math.pow(lengthDiffFallExp, period);
     }
 }

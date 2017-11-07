@@ -1,7 +1,7 @@
 const createUrl = date => `https://api.fixer.io/${date}?base=USD`;
 
-const timeMult = 100;
-const days = 200;
+const timeMult = 250;
+const days = 500;
 let date = new Date();
 let results = new Array(days);
 

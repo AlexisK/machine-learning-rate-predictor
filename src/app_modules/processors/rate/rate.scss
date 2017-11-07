@@ -7,10 +7,18 @@
   border: 1px solid $grey-2;
   background-color: $grey-1;
 
-  .content {
+  .rate-wrapper {
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
+    overflow: auto;
+  }
+
+  .content {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    padding: 0 100px;
     font-size: 0;
+    white-space: nowrap;
 
     .rate-bar {
       position: relative;
